@@ -48,6 +48,7 @@ lib/
 │   ├── directives_screen.dart  # CMD — formulario de directiva: inputs, selector de subsistema, interlocks
 │   ├── alerts_screen.dart      # ALERT — log de alertas activas + panel de respuesta de emergencia
 │   ├── auth_screen.dart        # AUTH — perfil de operador con barras de estadísticas
+│   ├── magi_screen.dart        # MAGI — panel de votación de las 3 supercomputadoras con CustomPainter en forma de Y
 │   └── showcase_screen.dart    # DS — catálogo completo de todos los componentes del DS
 │
 └── widgets/                # Componentes del DS EVA-01 (ver §Catálogo de componentes)
@@ -423,6 +424,7 @@ Tabs disponibles:
 
 | Tab | Pantalla | Icono |
 |---|---|---|
+| `MAGI` | `MagiScreen` | `EvaIconName.target` |
 | `OPS` | `HomeScreen` | `EvaIconName.grid` |
 | `CMD` | `DirectivesScreen` | `EvaIconName.terminal` |
 | `ALERT` | `AlertsScreen` | `EvaIconName.triangleAlert` |
