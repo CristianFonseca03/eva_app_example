@@ -1,0 +1,274 @@
+/* =============================================================
+   EVA-01 Design System — Tokens
+   Dark-only. Operational. Angular.
+   ============================================================= */
+
+/* Webfonts via Google Fonts (substitution flagged in README) */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  /* -------- COLOR — primary (action / alert) ---------------- */
+  --color-danger:   #FF2020;   /* red emergency */
+  --color-warning:  #FF6B00;   /* orange alert (workhorse) */
+  --color-caution:  #FFB800;   /* amber caution */
+  --color-active:   #F5C518;   /* yellow active / confirm */
+
+  /* -------- COLOR — structure / data ------------------------ */
+  --color-data:     #CC4400;   /* dark orange (secondary data) */
+  --color-muted:    #8B4513;   /* rusted brown (disabled struct) */
+  --color-border:   #3D1500;   /* deep border */
+  --color-surface:  #0A0A0A;   /* default canvas */
+  --color-surface-2:#111111;   /* elevated surface */
+  --color-surface-3:#1A0800;   /* tinted-red surface */
+
+  /* -------- COLOR — text ------------------------------------ */
+  --color-text-primary:   #FF6B00;
+  --color-text-secondary: #CC4400;
+  --color-text-label:     #666666;
+  --color-text-value:     #FFFFFF;
+  --color-text-disabled:  #333333;
+
+  /* -------- COLOR — status status pips ---------------------- */
+  --color-status-active:  #6BFF3B;  /* neon green */
+  --color-status-standby: #FFB800;
+  --color-status-danger:  #FF2020;
+  --color-status-offline: #555555;
+
+  /* -------- COLOR — glows ----------------------------------- */
+  --color-glow-danger:  rgba(255, 32, 32, 0.4);
+  --color-glow-warning: rgba(255, 107, 0, 0.35);
+  --color-glow-active:  rgba(245, 197, 24, 0.3);
+
+  /* -------- HAZARD pattern ---------------------------------- */
+  --color-hazard-stripe: repeating-linear-gradient(
+    45deg,
+    #FFB800 0,
+    #FFB800 10px,
+    #1A1A00 10px,
+    #1A1A00 20px
+  );
+
+  /* -------- TYPOGRAPHY -------------------------------------- */
+  --font-primary: 'Share Tech Mono', 'Courier New', monospace;
+  --font-display: 'Bebas Neue', 'Impact', 'Arial Narrow', sans-serif;
+  --font-ui:      'Rajdhani', 'Oswald', 'Trebuchet MS', sans-serif;
+
+  --text-xs:   9px;
+  --text-sm:   11px;
+  --text-base: 13px;
+  --text-md:   16px;
+  --text-lg:   20px;
+  --text-xl:   28px;
+  --text-2xl:  40px;
+
+  --tracking-tight:  0.04em;
+  --tracking-base:   0.08em;
+  --tracking-wide:   0.12em;
+  --tracking-xwide:  0.18em;
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+
+  /* -------- SPACING ----------------------------------------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* -------- BORDERS / CLIPS --------------------------------- */
+  --border-thin:  1px solid var(--color-border);
+  --border-mid:   1px solid var(--color-warning);
+  --border-bold:  2px solid var(--color-warning);
+  --border-danger:2px solid var(--color-danger);
+
+  --radius-none: 0;
+  --radius-xs:   2px;
+
+  --clip-sm: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+  --clip-md: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  --clip-lg: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  --clip-card: polygon(
+    0 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% 100%,
+    12px 100%,
+    0 calc(100% - 12px)
+  );
+  --clip-tab: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+
+  /* -------- SHADOWS / GLOWS --------------------------------- */
+  --shadow-glow-danger:  0 0 8px rgba(255,32,32,0.6),  0 0 20px rgba(255,32,32,0.3);
+  --shadow-glow-warning: 0 0 6px rgba(255,107,0,0.5),  0 0 16px rgba(255,107,0,0.25);
+  --shadow-glow-active:  0 0 4px rgba(245,197,24,0.4), 0 0 12px rgba(245,197,24,0.2);
+  --shadow-panel:        0 4px 20px rgba(0,0,0,0.8);
+  --shadow-inset-danger: inset 0 0 0 2px var(--color-danger), inset 0 0 8px rgba(255,32,32,0.4);
+
+  /* -------- MOTION ------------------------------------------ */
+  --dur-fast: 100ms;
+  --dur-base: 150ms;
+  --dur-mid:  300ms;
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-linear: linear;
+
+  /* -------- GRID -------------------------------------------- */
+  --grid-cols-web:    12;
+  --grid-cols-mobile: 4;
+  --grid-gutter-web:    16px;
+  --grid-gutter-mobile: 12px;
+  --grid-margin-web:    24px;
+  --grid-margin-mobile: 16px;
+}
+
+/* =============================================================
+   SEMANTIC ELEMENT STYLES
+   ============================================================= */
+
+html, body {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-warning);
+  color: var(--color-surface);
+}
+
+h1, .h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-xwide);
+  text-transform: uppercase;
+  font-weight: var(--weight-regular);
+  color: var(--color-text-primary);
+  line-height: 1.05;
+  margin: 0;
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+h3, .h3 {
+  font-family: var(--font-ui);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-base);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+h4, .h4 {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  letter-spacing: var(--tracking-base);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  color: var(--color-warning);
+  margin: 0;
+}
+
+p {
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-3);
+}
+
+code, .mono, kbd, samp {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  letter-spacing: 0.02em;
+  color: var(--color-text-value);
+}
+
+a {
+  color: var(--color-warning);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--color-warning);
+  transition: color var(--dur-base) var(--ease);
+}
+a:hover { color: var(--color-caution); border-bottom-style: solid; }
+
+/* Micro-label — the 9px tag that sits on top of components */
+.micro-label,
+.micro {
+  font-family: var(--font-primary);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-label);
+}
+
+/* Data values */
+.value {
+  font-family: var(--font-primary);
+  font-size: var(--text-xl);
+  color: var(--color-text-value);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.02em;
+}
+
+/* Neon glow text */
+.neon-glow {
+  text-shadow: 0 0 8px currentColor, 0 0 20px currentColor;
+}
+
+/* =============================================================
+   KEYFRAMES
+   ============================================================= */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: var(--shadow-glow-danger); }
+  50%      { box-shadow: 0 0 4px rgba(255,32,32,0.4), 0 0 10px rgba(255,32,32,0.2); }
+}
+@keyframes pulse-text {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+@keyframes scan-line {
+  0%   { transform: translateY(-10%); }
+  100% { transform: translateY(110%); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-2px); }
+  75%      { transform: translateX(2px); }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  41%, 43% { opacity: 0.85; }
+  92%      { opacity: 0.92; }
+}
+@keyframes data-flash {
+  0%   { background: rgba(255,184,0,0.6); }
+  100% { background: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =============================================================
+   FOCUS
+   ============================================================= */
+:focus-visible {
+  outline: 2px dashed var(--color-warning);
+  outline-offset: 2px;
+}

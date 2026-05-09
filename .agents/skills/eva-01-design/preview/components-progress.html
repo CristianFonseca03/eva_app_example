@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css">
+<style>
+  .bar { height:8px; background:#1A0800; position:relative; overflow:hidden; }
+  .bar-thin { height:4px; }
+  .bar > .fill { height:100%; background:#FF6B00; box-shadow:0 0 6px rgba(255,107,0,.5); }
+  .bar.crit > .fill { background:#FF2020; box-shadow:0 0 8px rgba(255,32,32,.6); animation:p 1s ease-in-out infinite; }
+  .bar.haz > .fill { background:repeating-linear-gradient(45deg,#FFB800 0,#FFB800 8px,#1A1A00 8px,#1A1A00 16px); }
+  .ml { font-family:'Share Tech Mono',monospace; font-size:9px; color:#666; letter-spacing:.18em; text-transform:uppercase; }
+  .v  { font-family:'Share Tech Mono',monospace; font-size:11px; color:#fff; letter-spacing:.05em; }
+  .row2 { display:flex; justify-content:space-between; align-items:baseline; }
+  @keyframes p { 0%,100%{opacity:1} 50%{opacity:.6} }
+</style></head>
+<body>
+<div class="card" style="height:240px">
+  <div class="card-corner">16 / COMPONENT</div>
+  <div class="label-tag">PROGRESS BARS</div>
+  <div style="display:flex; flex-direction:column; gap:14px; padding-top:8px;">
+    <div>
+      <div class="row2"><span class="ml">[ FUEL · OXIDIZER ]</span><span class="v">68%</span></div>
+      <div class="bar" style="margin-top:4px;"><div class="fill" style="width:68%"></div></div>
+    </div>
+    <div>
+      <div class="row2"><span class="ml">[ SYNC RATIO ]</span><span class="v">41.3%</span></div>
+      <div class="bar bar-thin" style="margin-top:4px;"><div class="fill" style="width:41.3%; background:#F5C518; box-shadow:0 0 4px rgba(245,197,24,.5);"></div></div>
+    </div>
+    <div>
+      <div class="row2"><span class="ml">[ SHIELD INTEGRITY · CRITICAL ]</span><span class="v" style="color:#FF2020">14%</span></div>
+      <div class="bar crit" style="margin-top:4px;"><div class="fill" style="width:14%"></div></div>
+    </div>
+    <div>
+      <div class="row2"><span class="ml">[ CORE TEMP · 92% — HAZARD ]</span><span class="v" style="color:#FFB800">92%</span></div>
+      <div class="bar haz" style="margin-top:4px; height:12px;"><div class="fill" style="width:92%"></div></div>
+    </div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css">
+<style>
+  .alert {
+    display:flex; gap:14px; padding:14px 16px;
+    background:rgba(255,32,32,.06); border-left:4px solid #FF2020;
+    align-items:flex-start;
+  }
+  .alert.warn { background:rgba(255,107,0,.06); border-left-color:#FF6B00; }
+  .icon { flex-shrink:0; width:28px; height:28px; }
+  .code { font-family:'Share Tech Mono',monospace; font-size:11px; color:#FF2020; letter-spacing:.18em; text-transform:uppercase; padding-bottom:4px; }
+  .code.warn { color:#FF6B00; }
+  .desc { font-family:'Rajdhani',sans-serif; color:#fff; font-size:14px; letter-spacing:.04em; }
+</style></head>
+<body>
+<div class="card" style="height:200px">
+  <div class="card-corner">18 / COMPONENT</div>
+  <div class="label-tag">ALERT PANELS</div>
+  <div style="display:flex; flex-direction:column; gap:10px; padding-top:6px;">
+    <div class="alert">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#FF2020" stroke-width="1.5"><path d="M12 3 L22 21 H2 Z"/><path d="M12 10 V15"/><path d="M12 17 V18"/></svg>
+      <div>
+        <div class="code">ERR-7740 · CORE BREACH IMMINENT</div>
+        <div class="desc">Reactor delta has exceeded safe threshold. Initiate emergency shutdown within <b style="color:#FF2020">00:01:47</b>.</div>
+      </div>
+    </div>
+    <div class="alert warn">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" stroke-width="1.5"><path d="M12 3 L22 21 H2 Z"/><path d="M12 10 V15"/><path d="M12 17 V18"/></svg>
+      <div>
+        <div class="code warn">WRN-2102 · SYNC DRIFT DETECTED</div>
+        <div class="desc">Pilot sync ratio is fluctuating outside nominal band. Recalibrate before next sortie.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

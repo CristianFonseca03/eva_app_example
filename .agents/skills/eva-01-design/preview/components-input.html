@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css">
+<style>
+  .field { display:flex; flex-direction:column; gap:4px; flex:1; min-width:0; }
+  .ml { font-family:'Share Tech Mono',monospace; font-size:9px; color:#CC4400; letter-spacing:.18em; text-transform:uppercase; }
+  .input {
+    background:#111; color:#FF6B00; font-family:'Share Tech Mono',monospace; font-size:13px;
+    padding:10px 12px; border:0; border-bottom:2px solid #FF6B00; border-left:3px solid transparent;
+    outline:none; letter-spacing:.06em;
+  }
+  .input::placeholder { color:#666; text-transform:uppercase; }
+  .input.focus { border-left-color:#FF2020; box-shadow:0 0 8px rgba(255,107,0,.3); }
+  .input.error { border-bottom-color:#FF2020; border-left-color:#FF2020; box-shadow:0 0 8px rgba(255,32,32,.4); animation:p 1s ease-in-out infinite; }
+  .err-msg { font-family:'Share Tech Mono',monospace; font-size:10px; color:#FF2020; letter-spacing:.12em; }
+  @keyframes p { 0%,100%{box-shadow:0 0 8px rgba(255,32,32,.4)} 50%{box-shadow:0 0 16px rgba(255,32,32,.7)} }
+</style>
+</head>
+<body>
+<div class="card" style="height:230px">
+  <div class="card-corner">13 / COMPONENT</div>
+  <div class="label-tag">TEXT INPUT — STATES</div>
+  <div style="display:flex; gap:16px; padding-top:6px;">
+    <div class="field">
+      <span class="ml">[ ID / OPERATOR ]</span>
+      <input class="input" placeholder="ENTER OPERATOR ID">
+      <span style="font-family:'Share Tech Mono',monospace; font-size:10px; color:#666;">DEFAULT</span>
+    </div>
+    <div class="field">
+      <span class="ml">[ ID / OPERATOR ]</span>
+      <input class="input focus" value="IKARI-S-003">
+      <span style="font-family:'Share Tech Mono',monospace; font-size:10px; color:#666;">FOCUS — RED LEFT BORDER</span>
+    </div>
+    <div class="field">
+      <span class="ml">[ ID / OPERATOR ]</span>
+      <input class="input error" value="IKARI-X-???">
+      <span class="err-msg">ERR · INVALID FORMAT</span>
+    </div>
+  </div>
+</div>
+</body></html>

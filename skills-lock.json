@@ -12,6 +12,12 @@
       "sourceType": "github",
       "skillPath": "skills/documentation-writer/SKILL.md",
       "computedHash": "ee53d65b163cd7eb953a930c95841cfe398cc2c0bd24c06508bbaa07c432be35"
+    },
+    "eva-01-design": {
+      "source": "https://api.anthropic.com/v1/design/h/4MXaSH9b4s3RaWTFk7Nsig",
+      "sourceType": "anthropic-design",
+      "skillPath": "skills/eva-01-design/SKILL.md",
+      "computedHash": "280f1d45fdd122c71ca75adaaaea56a7ef72d657bfd1098fb4d3345632b1a4f7"
     }
   }
 }

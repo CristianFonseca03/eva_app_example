@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css">
+<style>
+  .data-card {
+    background:#111; border:1px solid #3D1500; border-top:2px solid #FF6B00;
+    clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    padding:12px 14px; flex:1; min-width:0; position:relative;
+  }
+  .data-card.crit { border-top-color:#FF2020; }
+  .ml { font-family:'Share Tech Mono',monospace; font-size:9px; color:#666; letter-spacing:.18em; text-transform:uppercase; }
+  .lbl { font-family:'Rajdhani',sans-serif; text-transform:uppercase; letter-spacing:.1em; font-size:11px; color:#CC4400; padding-top:4px;}
+  .v { font-family:'Share Tech Mono',monospace; font-size:28px; color:#fff; padding-top:4px; font-weight:700; }
+  .div { height:1px; background:repeating-linear-gradient(90deg,#FF6B00 0,#FF6B00 4px,transparent 4px,transparent 8px); margin:8px 0; opacity:.3; }
+  .pip { display:inline-block; width:8px; height:8px; box-shadow:0 0 6px currentColor;}
+</style></head>
+<body>
+<div class="card" style="height:200px">
+  <div class="card-corner">17 / COMPONENT</div>
+  <div class="label-tag">DATA CARDS — STATUS PANEL</div>
+  <div style="display:flex; gap:12px; padding-top:8px;">
+    <div class="data-card">
+      <span class="ml">[ AT FIELD ]</span>
+      <div class="lbl">FIELD STRENGTH</div>
+      <div class="v">87.4%</div>
+      <div class="div"></div>
+      <div style="display:flex; gap:6px; align-items:center;"><span class="pip" style="background:#6BFF3B; color:#6BFF3B;"></span><span class="ml" style="color:#6BFF3B;">NOMINAL</span></div>
+    </div>
+    <div class="data-card">
+      <span class="ml">[ SYNC RATIO ]</span>
+      <div class="lbl">PILOT · UNIT-01</div>
+      <div class="v">41.3<span style="font-size:18px; color:#FFB800;">%</span></div>
+      <div class="div"></div>
+      <div style="display:flex; gap:6px; align-items:center;"><span class="pip" style="background:#FFB800; color:#FFB800;"></span><span class="ml" style="color:#FFB800;">DRIFT</span></div>
+    </div>
+    <div class="data-card crit">
+      <span class="ml" style="color:#FF6B00;">[ CORE TEMP · CRIT ]</span>
+      <div class="lbl" style="color:#FF6B00;">REACTOR DELTA</div>
+      <div class="v" style="color:#FF2020;">+2147</div>
+      <div class="div"></div>
+      <div style="display:flex; gap:6px; align-items:center;"><span class="pip" style="background:#FF2020; color:#FF2020;"></span><span class="ml" style="color:#FF2020;">DANGER</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"></head>
+<body>
+<div class="card" style="height:170px">
+  <div class="card-corner">04 / PALETTE</div>
+  <div class="label-tag">STATUS PIPS &amp; GLOWS</div>
+  <div style="display:flex; gap:24px; align-items:center; padding-top:8px;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <span style="width:14px; height:14px; background:#6BFF3B; box-shadow:0 0 8px #6BFF3B; display:block;"></span>
+      <span style="font-family:var(--font-primary); font-size:10px; color:#FF6B00; letter-spacing:.15em;">ACTIVE</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <span style="width:14px; height:14px; background:#FFB800; box-shadow:0 0 8px #FFB800; display:block;"></span>
+      <span style="font-family:var(--font-primary); font-size:10px; color:#FF6B00; letter-spacing:.15em;">STANDBY</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <span style="width:14px; height:14px; background:#FF2020; box-shadow:0 0 12px #FF2020; display:block; animation:p 1.5s ease-in-out infinite;"></span>
+      <span style="font-family:var(--font-primary); font-size:10px; color:#FF6B00; letter-spacing:.15em;">DANGER</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <span style="width:14px; height:14px; background:#555; display:block;"></span>
+      <span style="font-family:var(--font-primary); font-size:10px; color:#666; letter-spacing:.15em;">OFFLINE</span>
+    </div>
+    <div style="margin-left:auto; display:flex; flex-direction:column; gap:8px;">
+      <div style="font-family:var(--font-primary); font-size:9px; color:#666; letter-spacing:.18em;">GLOW TOKENS</div>
+      <div style="display:flex; gap:10px;">
+        <div style="width:70px; height:36px; background:#0A0A0A; border:1px solid #FF2020; box-shadow:var(--shadow-glow-danger);"></div>
+        <div style="width:70px; height:36px; background:#0A0A0A; border:1px solid #FF6B00; box-shadow:var(--shadow-glow-warning);"></div>
+        <div style="width:70px; height:36px; background:#0A0A0A; border:1px solid #F5C518; box-shadow:var(--shadow-glow-active);"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>@keyframes p {0%,100%{opacity:1}50%{opacity:.4}}</style>
+</body></html>

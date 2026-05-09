@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css">
+<style>
+  .modal { background:#0A0A0A; border:2px solid #FF2020; box-shadow:0 0 20px rgba(255,32,32,.4), 0 4px 30px rgba(0,0,0,.9);
+    clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    width:480px; }
+  .head { padding:14px 18px; background:rgba(255,32,32,.1); border-bottom:1px solid #3D1500; display:flex; gap:12px; align-items:center; }
+  .head .t { font-family:'Bebas Neue',sans-serif; color:#FF2020; font-size:22px; letter-spacing:.18em; }
+  .body { padding:18px; }
+  .body p { font-family:'Rajdhani',sans-serif; color:#fff; font-size:14px; line-height:1.55; margin:0 0 12px; letter-spacing:.04em; }
+  .body code { color:#FF2020; }
+  .input { background:#111; border:0; border-bottom:2px solid #FF2020; color:#fff; font-family:'Share Tech Mono',monospace; font-size:14px; padding:8px 10px; width:160px; letter-spacing:.1em; outline:none; }
+  .ml { font-family:'Share Tech Mono',monospace; font-size:9px; color:#CC4400; letter-spacing:.18em; text-transform:uppercase; padding-bottom:4px; }
+  .foot { padding:14px 18px; border-top:1px solid #3D1500; display:flex; gap:10px; justify-content:flex-end; }
+  .btn { font-family:'Rajdhani',sans-serif; text-transform:uppercase; letter-spacing:.12em; font-weight:700; border:0; padding:10px 16px; height:36px; clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); cursor:pointer;}
+  .b-cancel { background:transparent; color:#FF6B00; border:1px solid #FF6B00; }
+  .b-haz { background:repeating-linear-gradient(45deg,#FFB800 0,#FFB800 8px,#1A1A00 8px,#1A1A00 16px); padding:0; height:36px; position:relative;}
+  .b-haz span { display:inline-flex; align-items:center; height:100%; padding:0 16px; background:rgba(0,0,0,.7); color:#fff; font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:13px; }
+</style></head>
+<body>
+<div class="card" style="height:340px; padding:24px;">
+  <div class="card-corner">19 / COMPONENT</div>
+  <div class="label-tag">HAZARD CONFIRMATION MODAL</div>
+  <div style="display:flex; justify-content:center; padding-top:8px;">
+    <div class="modal">
+      <div class="head">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF2020" stroke-width="2"><path d="M12 3 L22 21 H2 Z"/><path d="M12 10 V15"/><path d="M12 17 V18"/></svg>
+        <span class="t">CONFIRM IRREVERSIBLE ACTION</span>
+      </div>
+      <div class="body">
+        <p>You are about to <code>PURGE</code> the auxiliary core. This action <b style="color:#FF2020">cannot be undone</b> and will void all telemetry from CHN-14B.</p>
+        <div class="ml">[ TYPE "PURGE" TO PROCEED ]</div>
+        <input class="input" placeholder="________">
+      </div>
+      <div class="foot">
+        <button class="btn b-cancel">CANCEL</button>
+        <button class="btn b-haz"><span>⚠ EXECUTE PURGE</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

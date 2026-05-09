@@ -1,0 +1,50 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css">
+<style>
+  .ml { font-family:'Share Tech Mono',monospace; font-size:9px; color:#CC4400; letter-spacing:.18em; text-transform:uppercase; }
+  .select { background:#111; color:#FF6B00; padding:10px 12px; border:0; border-bottom:2px solid #FF6B00; font-family:'Share Tech Mono',monospace; font-size:13px; display:flex; justify-content:space-between; align-items:center; min-width:220px; }
+  .select .v { letter-spacing:.06em; }
+  .select .chev { color:#FF6B00; font-size:10px; }
+  .menu { background:#0D0D0D; border:1px solid #3D1500; min-width:220px; }
+  .menu-item { padding:10px 12px; font-family:'Share Tech Mono',monospace; font-size:13px; color:#FF6B00; border-bottom:1px solid rgba(255,107,0,.1); border-left:3px solid transparent; letter-spacing:.06em; }
+  .menu-item.hover { border-left-color:#FF6B00; background:rgba(255,107,0,.08); color:#fff; }
+  .ck { width:18px; height:18px; border:1.5px solid #FF6B00; display:inline-flex; align-items:center; justify-content:center; }
+  .ck.on { background:#FF6B00; }
+  .ck.on::before { content:''; width:8px; height:5px; border-left:2px solid #000; border-bottom:2px solid #000; transform:rotate(-45deg) translate(1px,-1px); }
+  .toggle { width:46px; height:22px; background:#1A0800; border:1px solid #3D1500; position:relative; }
+  .toggle::after { content:''; position:absolute; top:2px; left:2px; width:16px; height:16px; background:#666; transition:all 150ms; }
+  .toggle.on { background:rgba(255,107,0,.2); border-color:#FF6B00; box-shadow:0 0 8px rgba(255,107,0,.4); }
+  .toggle.on::after { left:26px; background:#FF6B00; }
+  .lbl { font-family:'Rajdhani',sans-serif; text-transform:uppercase; letter-spacing:.1em; font-size:12px; color:#FF6B00; font-weight:600; }
+</style></head>
+<body>
+<div class="card" style="height:280px">
+  <div class="card-corner">14 / COMPONENT</div>
+  <div class="label-tag">SELECT · CHECKBOX · TOGGLE</div>
+  <div style="display:flex; gap:24px; padding-top:6px; align-items:flex-start;">
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <span class="ml">[ SUBSYSTEM ]</span>
+      <div class="select"><span class="v">PROPULSION</span><span class="chev">▼</span></div>
+      <div class="menu" style="margin-top:4px;">
+        <div class="menu-item">PROPULSION</div>
+        <div class="menu-item hover">NAVIGATION</div>
+        <div class="menu-item">LIFE SUPPORT</div>
+        <div class="menu-item" style="color:#333">ARMORY · LOCKED</div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; padding-top:18px;">
+      <span class="ml">[ SAFETY INTERLOCKS ]</span>
+      <div style="display:flex; gap:10px; align-items:center;"><span class="ck on"></span><span class="lbl">CRYO LOCK</span></div>
+      <div style="display:flex; gap:10px; align-items:center;"><span class="ck on"></span><span class="lbl">PRESSURE BALANCE</span></div>
+      <div style="display:flex; gap:10px; align-items:center;"><span class="ck"></span><span class="lbl">MANUAL OVERRIDE</span></div>
+      <div style="display:flex; gap:10px; align-items:center;"><span class="ck"></span><span class="lbl" style="color:#333">EMERGENCY DUMP</span></div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; padding-top:18px;">
+      <span class="ml">[ TOGGLES ]</span>
+      <div style="display:flex; gap:10px; align-items:center;"><span class="toggle on"></span><span class="lbl">SYNC LINK</span></div>
+      <div style="display:flex; gap:10px; align-items:center;"><span class="toggle"></span><span class="lbl">BROADCAST</span></div>
+      <div style="display:flex; gap:10px; align-items:center;"><span class="toggle on"></span><span class="lbl">TELEMETRY</span></div>
+    </div>
+  </div>
+</div>
+</body></html>
