@@ -84,6 +84,11 @@ class _MagiScreenState extends State<MagiScreen> {
   }
 
   void _reset() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
     setState(() {
       _phase = _MagiPhase.idle;
       for (final key in _verdicts.keys) {
@@ -132,7 +137,7 @@ class _MagiScreenState extends State<MagiScreen> {
             const SizedBox(height: 16),
             Center(
               child: EvaButton(
-                label: 'REINICIAR',
+                label: 'EJECUTAR DE NUEVO',
                 variant: EvaButtonVariant.ghost,
                 size: EvaButtonSize.md,
                 onPressed: _reset,
