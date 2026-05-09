@@ -99,6 +99,7 @@ class _MagiScreenState extends State<MagiScreen> {
           _verdicts[key] = null;
         }
       });
+      _submit();
     });
   }
 
