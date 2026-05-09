@@ -89,11 +89,14 @@ class _MagiScreenState extends State<MagiScreen> {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
-    setState(() {
-      _phase = _MagiPhase.idle;
-      for (final key in _verdicts.keys) {
-        _verdicts[key] = null;
-      }
+    Future.delayed(const Duration(milliseconds: 600), () {
+      if (!mounted) return;
+      setState(() {
+        _phase = _MagiPhase.idle;
+        for (final key in _verdicts.keys) {
+          _verdicts[key] = null;
+        }
+      });
     });
   }
 
