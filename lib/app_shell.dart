@@ -5,6 +5,7 @@ import 'screens/alerts_screen.dart';
 import 'screens/auth_screen.dart';
 import 'screens/directives_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/magi_screen.dart';
 import 'screens/showcase_screen.dart';
 import 'widgets/eva_clip.dart';
 import 'widgets/eva_icon.dart';
@@ -53,6 +54,12 @@ class _AppShellState extends State<AppShell> {
       crumb: '[ NERV / DESIGN SYSTEM ]',
       icon: EvaIconName.target,
       screen: ShowcaseScreen(),
+    ),
+    _TabItem(
+      label: 'MAGI',
+      crumb: '[ NERV / MAGI / SYSTEM ]',
+      icon: EvaIconName.signal,
+      screen: MagiScreen(),
     ),
   ];
 
