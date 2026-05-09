@@ -17,7 +17,7 @@ class EvaColors {
 
   static const textPrimary = Color(0xFFFF6B00);
   static const textSecondary = Color(0xFFCC4400);
-  static const textLabel = Color(0xFF666666);
+  static const textLabel = Color(0xFF999999);
   static const textValue = Color(0xFFFFFFFF);
   static const textDisabled = Color(0xFF333333);
 
@@ -60,9 +60,10 @@ class EvaTextStyles {
   );
 
   static TextStyle microLabel({Color? color}) => GoogleFonts.shareTechMono(
-    fontSize: 9,
+    fontSize: 11,
     color: color ?? EvaColors.textLabel,
-    letterSpacing: 0.18,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 0.14,
   );
 }
 
