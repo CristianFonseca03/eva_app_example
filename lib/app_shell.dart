@@ -21,7 +21,7 @@ class AppShell extends StatefulWidget {
 }
 
 class _AppShellState extends State<AppShell> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 5;
 
   static const _tabs = [
     _TabItem(

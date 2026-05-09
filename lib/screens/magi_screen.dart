@@ -6,7 +6,6 @@ import '../widgets/eva_button.dart';
 import '../widgets/eva_clip.dart';
 import '../widgets/eva_micro_label.dart';
 import '../widgets/eva_pip.dart';
-import '../widgets/eva_text_input.dart';
 
 enum _MagiPhase { idle, analyzing, complete }
 
@@ -32,12 +31,12 @@ class _MagiScreenState extends State<MagiScreen> {
     'BALTHASAR-2': null,
     'CASPAR-3': null,
   };
-  final _controller = TextEditingController();
   final _random = Random();
+  final _scrollController = ScrollController();
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -73,6 +72,14 @@ class _MagiScreenState extends State<MagiScreen> {
     Future.delayed(const Duration(milliseconds: 4800), () {
       if (!mounted) return;
       setState(() => _phase = _MagiPhase.complete);
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (!mounted) return;
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+        );
+      });
     });
   }
 
@@ -88,14 +95,13 @@ class _MagiScreenState extends State<MagiScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: _scrollController,
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildHeader(),
           const SizedBox(height: 20),
-          _buildInput(),
-          const SizedBox(height: 16),
           EvaButton(
             label: _phase == _MagiPhase.analyzing ? 'ANALIZANDO...' : 'SUBMIT TO MAGI',
             variant: EvaButtonVariant.primary,
@@ -154,27 +160,6 @@ class _MagiScreenState extends State<MagiScreen> {
         ),
       ],
     ).animate().fadeIn(duration: 400.ms).slideY(begin: -0.05);
-  }
-
-  Widget _buildInput() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const EvaMicroLabel('[ DIRECTIVA A EVALUAR ]'),
-        const SizedBox(height: 8),
-        AbsorbPointer(
-          absorbing: _phase != _MagiPhase.idle,
-          child: AnimatedOpacity(
-            opacity: _phase == _MagiPhase.idle ? 1.0 : 0.4,
-            duration: const Duration(milliseconds: 200),
-            child: EvaTextInput(
-              controller: _controller,
-              placeholder: 'CÓDIGO DE OPERACIÓN...',
-            ),
-          ),
-        ),
-      ],
-    ).animate().fadeIn(duration: 400.ms, delay: 100.ms);
   }
 
   Widget _buildFinalVerdict() {
