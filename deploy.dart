@@ -22,7 +22,7 @@ void main(List<String> args) async {
 String _parseMode(List<String> args) {
   if (args.contains('--profile')) return 'profile';
   if (args.contains('--debug')) return 'debug';
-  return 'debug';
+  return 'release';
 }
 
 String _parseAction(List<String> args) {

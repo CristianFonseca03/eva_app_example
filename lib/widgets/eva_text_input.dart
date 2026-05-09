@@ -8,6 +8,7 @@ class EvaTextInput extends StatefulWidget {
   final String? error;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
   final bool obscureText;
 
   const EvaTextInput({
@@ -17,6 +18,7 @@ class EvaTextInput extends StatefulWidget {
     this.error,
     this.controller,
     this.onChanged,
+    this.onSubmitted,
     this.obscureText = false,
   });
 
@@ -57,6 +59,7 @@ class _EvaTextInputState extends State<EvaTextInput> {
             child: TextField(
               controller: widget.controller,
               onChanged: widget.onChanged,
+              onSubmitted: widget.onSubmitted,
               obscureText: widget.obscureText,
               style: EvaTextStyles.mono(size: 13, color: EvaColors.warning),
               cursorColor: EvaColors.warning,

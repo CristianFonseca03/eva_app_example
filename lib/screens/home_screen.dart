@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../theme/eva_theme.dart';
 import '../widgets/eva_data_card.dart';
+import '../widgets/eva_directive_modal.dart';
 import '../widgets/eva_micro_label.dart';
 import '../widgets/eva_pip.dart';
 import '../widgets/eva_progress_bar.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _secondsLeft = 107;
   late Timer _timer;
+  OverlayEntry? _directiveOverlay;
 
   final _logEntries = [
     ('12:45:30', 'INF', EvaColors.warning, 'AT field engaged · CHN-14B'),
@@ -34,8 +36,26 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _showDirectiveModal() {
+    _directiveOverlay = OverlayEntry(
+      builder: (_) => Material(
+        color: Colors.transparent,
+        child: EvaDirectiveModal(
+          onClose: _closeDirectiveModal,
+        ).animate().fadeIn(duration: 150.ms),
+      ),
+    );
+    Overlay.of(context).insert(_directiveOverlay!);
+  }
+
+  void _closeDirectiveModal() {
+    _directiveOverlay?.remove();
+    _directiveOverlay = null;
+  }
+
   @override
   void dispose() {
+    _directiveOverlay?.remove();
     _timer.cancel();
     super.dispose();
   }
@@ -103,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Material(
         color: EvaColors.danger,
         child: InkWell(
-          onTap: () {},
+          onTap: _showDirectiveModal,
           splashColor: Colors.white24,
           child: Container(
             height: 48,

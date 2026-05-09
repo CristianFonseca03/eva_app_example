@@ -463,42 +463,68 @@ class _AnimationsSection extends StatefulWidget {
   State<_AnimationsSection> createState() => _AnimationsSectionState();
 }
 
-// Speed preset: multiplier applied to base durations
 enum _Speed { slow, normal, fast }
 
 class _AnimationsSectionState extends State<_AnimationsSection>
     with TickerProviderStateMixin {
 
   _Speed _speed = _Speed.normal;
+  int _durationMs = 3000;
+  final _durationCtrl = TextEditingController(text: '3000');
 
-  // Base durations at NORMAL speed (ms)
-  static const _baseDurations = [7000, 5500, 9000, 6500];
-  static const _pulseDurMs   = 900;
-  static const _scanDurMs    = 3000;
+  static const _pulseDurMs = 900;
+  static const _scanDurMs  = 3000;
+
+  static final _barColors = [
+    EvaColors.warning,
+    EvaColors.caution,
+    EvaColors.active,
+    EvaColors.statusActive,
+    EvaColors.data,
+    EvaColors.danger,
+  ];
 
   static const _speedFactors = {
     _Speed.slow:   2.5,
     _Speed.normal: 1.0,
-    _Speed.fast:   0.35,
+    _Speed.fast:   0.33,
   };
 
-  // Each bar uses a distinct curve
-  static const _curves = [
-    Curves.easeInOut,       // FUEL    — smooth sine
-    Curves.easeIn,          // SHIELD  — accelerates into peak
-    Curves.easeOut,         // CORE    — decelerates from peak
-    Curves.linear,          // SYNC    — constant rate
+  static const _allCurves = <(Curve, String)>[
+    (Curves.linear,           'linear'),
+    (Curves.decelerate,       'decelerate'),
+    (Curves.easeIn,           'easeIn'),
+    (Curves.easeOut,          'easeOut'),
+    (Curves.easeInOut,        'easeInOut'),
+    (Curves.easeInSine,       'easeInSine'),
+    (Curves.easeOutSine,      'easeOutSine'),
+    (Curves.easeInOutSine,    'easeInOutSine'),
+    (Curves.easeInCubic,      'easeInCubic'),
+    (Curves.easeOutCubic,     'easeOutCubic'),
+    (Curves.easeInOutCubic,   'easeInOutCubic'),
+    (Curves.easeInQuart,      'easeInQuart'),
+    (Curves.easeOutQuart,     'easeOutQuart'),
+    (Curves.easeInOutQuart,   'easeInOutQuart'),
+    (Curves.easeInExpo,       'easeInExpo'),
+    (Curves.easeOutExpo,      'easeOutExpo'),
+    (Curves.easeInOutExpo,    'easeInOutExpo'),
+    (Curves.easeInBack,       'easeInBack'),
+    (Curves.easeOutBack,      'easeOutBack'),
+    (Curves.easeInOutBack,    'easeInOutBack'),
+    (Curves.bounceIn,         'bounceIn'),
+    (Curves.bounceOut,        'bounceOut'),
+    (Curves.bounceInOut,      'bounceInOut'),
+    (Curves.elasticIn,        'elasticIn'),
+    (Curves.elasticOut,       'elasticOut'),
+    (Curves.elasticInOut,     'elasticInOut'),
+    (Curves.fastOutSlowIn,    'fastOutSlowIn'),
+    (Curves.slowMiddle,       'slowMiddle'),
   ];
 
-  static const _curveLabels = [
-    'easeInOut',
-    'easeIn',
-    'easeOut',
-    'linear',
-  ];
-
-  late AnimationController _c1, _c2, _c3, _c4, _pulseC, _scanC;
-  late Animation<double> _a1, _a2, _a3, _a4;
+  late AnimationController _progressC;
+  late AnimationController _pulseC;
+  late AnimationController _scanC;
+  late List<Animation<double>> _curveAnims;
 
   @override
   void initState() {
@@ -506,34 +532,55 @@ class _AnimationsSectionState extends State<_AnimationsSection>
     _initControllers();
   }
 
+  int get _effectiveDuration =>
+      (_durationMs * _speedFactors[_speed]!).round();
+
   void _initControllers() {
-    final f = _speedFactors[_speed]!;
-    _c1 = AnimationController(vsync: this, duration: Duration(milliseconds: (_baseDurations[0] / f).round()))..repeat(reverse: true);
-    _c2 = AnimationController(vsync: this, duration: Duration(milliseconds: (_baseDurations[1] / f).round()))..repeat(reverse: true);
-    _c3 = AnimationController(vsync: this, duration: Duration(milliseconds: (_baseDurations[2] / f).round()))..repeat(reverse: true);
-    _c4 = AnimationController(vsync: this, duration: Duration(milliseconds: (_baseDurations[3] / f).round()))..repeat(reverse: true);
-    _pulseC = AnimationController(vsync: this, duration: Duration(milliseconds: (_pulseDurMs / f).round()))..repeat(reverse: true);
-    _scanC  = AnimationController(vsync: this, duration: Duration(milliseconds: (_scanDurMs / f).round()))..repeat();
-    _a1 = CurvedAnimation(parent: _c1, curve: _curves[0], reverseCurve: _curves[0].flipped);
-    _a2 = CurvedAnimation(parent: _c2, curve: _curves[1], reverseCurve: _curves[1].flipped);
-    _a3 = CurvedAnimation(parent: _c3, curve: _curves[2], reverseCurve: _curves[2].flipped);
-    _a4 = CurvedAnimation(parent: _c4, curve: _curves[3], reverseCurve: _curves[3].flipped);
+    _progressC = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: _effectiveDuration),
+    )..repeat(reverse: true);
+    _pulseC = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: (_pulseDurMs * _speedFactors[_speed]!).round()),
+    )..repeat(reverse: true);
+    _scanC = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: (_scanDurMs * _speedFactors[_speed]!).round()),
+    )..repeat();
+    _curveAnims = _allCurves.map((entry) {
+      final (curve, _) = entry;
+      return CurvedAnimation(parent: _progressC, curve: curve, reverseCurve: curve.flipped);
+    }).toList();
+  }
+
+  void _rebuild() {
+    _progressC.dispose();
+    _pulseC.dispose();
+    _scanC.dispose();
+    setState(_initControllers);
   }
 
   void _setSpeed(_Speed s) {
     if (s == _speed) return;
-    _c1.dispose(); _c2.dispose(); _c3.dispose();
-    _c4.dispose(); _pulseC.dispose(); _scanC.dispose();
-    setState(() {
-      _speed = s;
-      _initControllers();
-    });
+    _speed = s;
+    _durationCtrl.text = _effectiveDuration.toString();
+    _rebuild();
+  }
+
+  void _applyDuration(String raw) {
+    final v = int.tryParse(raw.trim());
+    if (v == null || v < 100) return;
+    _durationMs = v.clamp(100, 30000);
+    _rebuild();
   }
 
   @override
   void dispose() {
-    _c1.dispose(); _c2.dispose(); _c3.dispose();
-    _c4.dispose(); _pulseC.dispose(); _scanC.dispose();
+    _progressC.dispose();
+    _pulseC.dispose();
+    _scanC.dispose();
+    _durationCtrl.dispose();
     super.dispose();
   }
 
@@ -549,7 +596,6 @@ class _AnimationsSectionState extends State<_AnimationsSection>
             const SizedBox(width: 16),
             ..._Speed.values.map((s) {
               final active = s == _speed;
-              final label = s.name.toUpperCase();
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: GestureDetector(
@@ -568,7 +614,7 @@ class _AnimationsSectionState extends State<_AnimationsSection>
                           : [],
                     ),
                     child: Text(
-                      label,
+                      s.name.toUpperCase(),
                       style: EvaTextStyles.ui(
                         size: 12,
                         color: active ? EvaColors.warning : EvaColors.textLabel,
@@ -583,23 +629,44 @@ class _AnimationsSectionState extends State<_AnimationsSection>
           ],
         ),
 
+        const SizedBox(height: 12),
+
+        // ── DURATION INPUT ───────────────────────────────────
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const EvaMicroLabel('[ DURATION ]'),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 110,
+              child: EvaTextInput(
+                controller: _durationCtrl,
+                placeholder: '3000',
+                onSubmitted: _applyDuration,
+              ),
+            ),
+            const SizedBox(width: 10),
+            EvaMicroLabel('MS · EFFECTIVE: ${_effectiveDuration}MS', color: EvaColors.textSecondary),
+          ],
+        ),
+
         const SizedBox(height: 20),
 
-        // ── PROGRESS BARS LOOP ──────────────────────────────
+        // ── PROGRESS BARS — ALL CURVES ───────────────────────
         const EvaMicroLabel('[ PROGRESS — LOOP 0 → 100 → 0 ]'),
         const SizedBox(height: 12),
         AnimatedBuilder(
-          animation: Listenable.merge([_a1, _a2, _a3, _a4]),
-          builder: (_, __) => Column(
-            children: [
-              _bar('FUEL · NORMAL',     _a1.value * 100, EvaColors.warning, EvaColors.warning,  _curveLabels[0]),
-              const SizedBox(height: 12),
-              _bar('SHIELD · CRITICAL', _a2.value * 100, EvaColors.danger,  EvaColors.danger,   _curveLabels[1]),
-              const SizedBox(height: 12),
-              _bar('CORE · HAZARD',     _a3.value * 100, EvaColors.caution, null,               _curveLabels[2], haz: true),
-              const SizedBox(height: 12),
-              _bar('SYNC RATIO',        _a4.value * 100, EvaColors.active,  EvaColors.active,   _curveLabels[3], thin: true),
-            ],
+          animation: _progressC,
+          builder: (_, _) => Column(
+            children: List.generate(_allCurves.length, (i) {
+              final (_, label) = _allCurves[i];
+              final v = _curveAnims[i].value * 100;
+              final color = _barColors[i % _barColors.length];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: _bar(label.toUpperCase(), v, color, label, design: i % 3),
+              );
+            }),
           ),
         ),
 
@@ -610,7 +677,7 @@ class _AnimationsSectionState extends State<_AnimationsSection>
         const SizedBox(height: 12),
         AnimatedBuilder(
           animation: _pulseC,
-          builder: (_, __) => Wrap(
+          builder: (_, _) => Wrap(
             spacing: 12,
             runSpacing: 10,
             children: [
@@ -631,7 +698,7 @@ class _AnimationsSectionState extends State<_AnimationsSection>
           height: 56,
           child: AnimatedBuilder(
             animation: _scanC,
-            builder: (_, __) => ClipRect(
+            builder: (_, _) => ClipRect(
               child: Stack(
                 children: [
                   Container(color: EvaColors.surface2),
@@ -666,9 +733,9 @@ class _AnimationsSectionState extends State<_AnimationsSection>
         const EvaMicroLabel('[ FLICKER ]'),
         const SizedBox(height: 12),
         AnimatedBuilder(
-          animation: _c1,
-          builder: (_, __) {
-            final flicker = (_c1.value * 17).floor() % 4 == 0 ? 0.8 : 1.0;
+          animation: _progressC,
+          builder: (_, _) {
+            final flicker = (_progressC.value * 17).floor() % 4 == 0 ? 0.8 : 1.0;
             return Opacity(
               opacity: flicker,
               child: Container(
@@ -685,7 +752,7 @@ class _AnimationsSectionState extends State<_AnimationsSection>
                     const Spacer(),
                     AnimatedBuilder(
                       animation: _pulseC,
-                      builder: (_, __) => Container(
+                      builder: (_, _) => Container(
                         width: 8, height: 8,
                         color: EvaColors.statusActive.withValues(alpha: 0.5 + _pulseC.value * 0.5),
                       ),
@@ -702,10 +769,39 @@ class _AnimationsSectionState extends State<_AnimationsSection>
     );
   }
 
-  Widget _bar(String label, double value, Color fill, Color? glowColor, String curveName,
-      {bool haz = false, bool thin = false}) {
-    final h = thin ? 4.0 : 8.0;
+  Widget _bar(String label, double value, Color color, String curveName, {int design = 0}) {
     final pct = value.clamp(0.0, 100.0) / 100.0;
+
+    late double barHeight;
+    late BoxDecoration fillDecoration;
+
+    switch (design) {
+      case 1:
+        barHeight = 6;
+        fillDecoration = BoxDecoration(
+          gradient: LinearGradient(colors: [
+            color.withValues(alpha: 0.25),
+            color,
+          ]),
+          boxShadow: [BoxShadow(color: color.withValues(alpha: 0.45), blurRadius: 8)],
+        );
+      case 2:
+        barHeight = 3;
+        fillDecoration = BoxDecoration(
+          color: color,
+          boxShadow: [
+            BoxShadow(color: color.withValues(alpha: 0.75), blurRadius: 10),
+            BoxShadow(color: color.withValues(alpha: 0.35), blurRadius: 22),
+          ],
+        );
+      default:
+        barHeight = 8;
+        fillDecoration = BoxDecoration(
+          color: color,
+          boxShadow: [BoxShadow(color: color.withValues(alpha: 0.55), blurRadius: 8)],
+        );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -718,33 +814,23 @@ class _AnimationsSectionState extends State<_AnimationsSection>
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                 decoration: BoxDecoration(
-                  border: Border(left: BorderSide(color: EvaColors.textLabel, width: 1)),
+                  border: Border(left: BorderSide(color: color.withValues(alpha: 0.5), width: 1)),
                 ),
-                child: EvaMicroLabel(curveName),
+                child: EvaMicroLabel(curveName, color: color),
               ),
             ]),
             Text('${value.round()}%',
-                style: EvaTextStyles.mono(size: 11,
-                    color: fill == EvaColors.danger ? EvaColors.danger : EvaColors.textValue)),
+                style: EvaTextStyles.mono(size: 11, color: color)),
           ],
         ),
         const SizedBox(height: 4),
         Container(
-          height: h,
+          height: barHeight,
           color: EvaColors.surface3,
           child: FractionallySizedBox(
             widthFactor: pct,
             alignment: Alignment.centerLeft,
-            child: haz
-                ? CustomPaint(painter: _HazPainter(), child: const SizedBox.expand())
-                : Container(
-                    decoration: BoxDecoration(
-                      color: fill,
-                      boxShadow: glowColor != null
-                          ? [BoxShadow(color: glowColor.withValues(alpha: 0.55), blurRadius: 8)]
-                          : null,
-                    ),
-                  ),
+            child: Container(decoration: fillDecoration),
           ),
         ),
       ],
@@ -765,27 +851,4 @@ class _AnimationsSectionState extends State<_AnimationsSection>
       child: EvaMicroLabel(label, color: color),
     );
   }
-}
-
-class _HazPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final amber = Paint()..color = const Color(0xFFFFB800);
-    final dark = Paint()..color = const Color(0xFF1A1A00);
-    const w = 8.0;
-    canvas.drawRect(Offset.zero & size, dark);
-    final p = Path();
-    var x = -size.height;
-    while (x < size.width + size.height) {
-      p.reset();
-      p.moveTo(x, 0); p.lineTo(x + w, 0);
-      p.lineTo(x + w + size.height, size.height);
-      p.lineTo(x + size.height, size.height);
-      p.close();
-      canvas.drawPath(p, amber);
-      x += w * 2;
-    }
-  }
-  @override
-  bool shouldRepaint(_HazPainter _) => false;
 }

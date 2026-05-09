@@ -36,6 +36,16 @@ class _DirectivesScreenState extends State<DirectivesScreen> {
     });
   }
 
+  void _clear() {
+    setState(() {
+      _code.clear();
+      _system = 'PROPULSION';
+      _cryoLock = false;
+      _override = false;
+      _submitted = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -101,7 +111,7 @@ class _DirectivesScreenState extends State<DirectivesScreen> {
               label: 'CANCEL',
               variant: EvaButtonVariant.ghost,
               size: EvaButtonSize.md,
-              onPressed: () {},
+              onPressed: _clear,
             ),
           ],
           const SizedBox(height: 40),
@@ -115,27 +125,38 @@ class _DirectivesScreenState extends State<DirectivesScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const EvaMicroLabel('[ SUBSYSTEM ]', color: EvaColors.textSecondary),
-        const SizedBox(height: 4),
-        Container(
-          decoration: BoxDecoration(
-            color: EvaColors.surface2,
-            border: Border(bottom: const BorderSide(color: EvaColors.warning, width: 2)),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: _system,
-              isExpanded: true,
-              dropdownColor: EvaColors.surface2,
-              style: EvaTextStyles.mono(size: 13, color: EvaColors.warning),
-              iconEnabledColor: EvaColors.warning,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              items: _systems.map((s) => DropdownMenuItem(
-                value: s,
-                child: Text(s, style: EvaTextStyles.mono(size: 13, color: EvaColors.warning)),
-              )).toList(),
-              onChanged: (v) { if (v != null) setState(() => _system = v); },
-            ),
-          ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 6,
+          runSpacing: 6,
+          children: _systems.map((s) {
+            final active = s == _system;
+            return GestureDetector(
+              onTap: () => setState(() => _system = s),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 120),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                decoration: BoxDecoration(
+                  color: active ? EvaColors.warning.withValues(alpha: 0.12) : EvaColors.surface2,
+                  border: Border.all(
+                    color: active ? EvaColors.warning : EvaColors.border,
+                    width: active ? 1.5 : 1,
+                  ),
+                  boxShadow: active
+                      ? [BoxShadow(color: EvaColors.warning.withValues(alpha: 0.2), blurRadius: 8)]
+                      : [],
+                ),
+                child: Text(
+                  s,
+                  style: EvaTextStyles.mono(
+                    size: 11,
+                    color: active ? EvaColors.warning : EvaColors.textLabel,
+                    weight: active ? FontWeight.w700 : FontWeight.w400,
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
         ),
       ],
     );
@@ -165,7 +186,7 @@ class _CheckRow extends StatelessWidget {
               border: Border.all(color: color, width: 1.5),
             ),
             child: checked
-                ? const Icon(Icons.check, size: 14, color: Colors.black)
+                ? Icon(Icons.check, size: 14, color: EvaColors.surface)
                 : null,
           ),
           const SizedBox(width: 10),

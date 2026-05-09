@@ -52,7 +52,9 @@ class _EvaHazardModalState extends State<EvaHazardModal> {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(18),
-          child: EvaClipBox(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 520),
+            child: EvaClipBox(
             cut: 12,
             bottomLeft: true,
             backgroundColor: EvaColors.surface,
@@ -126,6 +128,7 @@ class _EvaHazardModalState extends State<EvaHazardModal> {
                 ),
               ],
             ),
+          ),
           ),
         ),
       ),
