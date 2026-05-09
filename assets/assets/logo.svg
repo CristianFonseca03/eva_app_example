@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  
+  <defs>
+    <clipPath id="cl">
+      <polygon points="0,0 56,0 60,4 60,56 56,60 0,60"></polygon>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#cl)">
+    <rect x="0" y="0" width="60" height="60" fill="#0A0A0A"></rect>
+    
+    <path d="M 8 50 L 30 6 L 52 50 L 40 50 L 30 28 L 20 50 Z" fill="#FF6B00"></path>
+    
+    <path d="M 4 38 L 56 8" stroke="#FF2020" stroke-width="2"></path>
+  </g>
+  
+  <text x="72" y="34" font-family="Bebas Neue, Impact, sans-serif" font-size="28" letter-spacing="4" fill="#FF6B00">EVA-01</text>
+  <text x="72" y="50" font-family="Share Tech Mono, monospace" font-size="9" letter-spacing="2" fill="#666666">DESIGN SYSTEM</text>
+</svg>
