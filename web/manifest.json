@@ -1,11 +1,11 @@
 {
-    "name": "eva_app_example",
-    "short_name": "eva_app_example",
+    "name": "EVA-01 Design System",
+    "short_name": "EVA-01",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0A0A0A",
+    "theme_color": "#FF6B00",
+    "description": "Interfaz operacional estilo NERV/Evangelion construida en Flutter. Sistema MAGI, panel OPS y catálogo de componentes.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
