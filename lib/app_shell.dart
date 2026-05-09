@@ -58,18 +58,25 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final mq = MediaQuery.of(context);
+    final width = mq.size.width;
     final isWide = width >= 600;
 
-    return Scaffold(
-      backgroundColor: EvaColors.surface,
-      body: Column(
-        children: [
-          _buildTopBar(isWide),
-          Expanded(
-            child: isWide ? _buildWideLayout() : _buildNarrowLayout(),
-          ),
-        ],
+    // Fluid type scale: 1.0 at 400px → 1.45 at 1920px
+    final scale = ((width - 400) / (1920 - 400) * 0.45 + 1.0).clamp(1.0, 1.45);
+
+    return MediaQuery(
+      data: mq.copyWith(textScaler: TextScaler.linear(scale)),
+      child: Scaffold(
+        backgroundColor: EvaColors.surface,
+        body: Column(
+          children: [
+            _buildTopBar(isWide),
+            Expanded(
+              child: isWide ? _buildWideLayout() : _buildNarrowLayout(),
+            ),
+          ],
+        ),
       ),
     );
   }
