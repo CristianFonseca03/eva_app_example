@@ -4,6 +4,7 @@ import '../theme/eva_theme.dart';
 import '../widgets/eva_alert_panel.dart';
 import '../widgets/eva_button.dart';
 import '../widgets/eva_hazard_modal.dart';
+import '../widgets/eva_icon.dart';
 import '../widgets/eva_micro_label.dart';
 
 class AlertsScreen extends StatefulWidget {
@@ -109,9 +110,10 @@ class _AlertsScreenState extends State<AlertsScreen> {
           ),
           const SizedBox(height: 14),
           EvaButton(
-            label: '⚠  PURGE CORE',
+            label: 'PURGE CORE',
             variant: EvaButtonVariant.hazard,
             size: EvaButtonSize.lg,
+            icon: EvaIcon(EvaIconName.triangleAlert, size: 16, color: Colors.white),
             onPressed: () => setState(() => _showModal = true),
           ),
         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/eva_theme.dart';
 import 'eva_button.dart';
 import 'eva_clip.dart';
+import 'eva_icon.dart';
 import 'eva_micro_label.dart';
 import 'eva_text_input.dart';
 
@@ -66,7 +67,7 @@ class _EvaHazardModalState extends State<EvaHazardModal> {
                   color: EvaColors.danger.withValues(alpha: 0.1),
                   child: Row(
                     children: [
-                      const Icon(Icons.warning_amber_rounded, color: EvaColors.danger, size: 18),
+                      EvaIcon(EvaIconName.triangleAlert, color: EvaColors.danger, size: 18),
                       const SizedBox(width: 10),
                       Text(
                         'CONFIRM IRREVERSIBLE',

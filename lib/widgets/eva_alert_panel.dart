@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/eva_theme.dart';
+import 'eva_icon.dart';
 
 enum AlertLevel { danger, warn }
 
@@ -28,7 +29,7 @@ class EvaAlertPanel extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.warning_amber_rounded, color: _color, size: 24),
+          EvaIcon(EvaIconName.triangleAlert, color: _color, size: 20),
           const SizedBox(width: 14),
           Expanded(
             child: Column(

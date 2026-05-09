@@ -156,7 +156,7 @@ class _EvaProgressBarState extends State<EvaProgressBar>
       ),
     );
 
-    if (widget.level == ProgressLevel.crit) {
+    if (widget.level == ProgressLevel.crit && !MediaQuery.disableAnimationsOf(context)) {
       fill = fill
           .animate(onPlay: (c) => c.repeat())
           .then(delay: 400.ms)

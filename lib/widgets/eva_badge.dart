@@ -36,7 +36,7 @@ class EvaBadge extends StatelessWidget {
       EvaBadgeVariant.icon => _buildIconBadge(),
     };
 
-    if (pulse) {
+    if (pulse && !MediaQuery.disableAnimationsOf(context)) {
       badge = badge
           .animate(onPlay: (c) => c.repeat())
           .then(delay: 800.ms)

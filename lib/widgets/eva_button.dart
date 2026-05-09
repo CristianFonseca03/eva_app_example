@@ -61,12 +61,12 @@ class _EvaButtonState extends State<EvaButton> {
 
     final (bgColor, textColor, borderColor, shadows) = switch (widget.variant) {
       EvaButtonVariant.primary => (
-          _hovered && !_disabled ? const Color(0xFFFF4040) : EvaColors.danger,
-          Colors.white,
-          EvaColors.danger,
+          _hovered && !_disabled ? EvaColors.caution : EvaColors.warning,
+          Colors.black,
+          EvaColors.warning,
           [
-            BoxShadow(color: EvaColors.danger.withAlpha(_hovered ? 200 : 153), blurRadius: _hovered ? 12 : 8),
-            BoxShadow(color: EvaColors.danger.withAlpha(_hovered ? 100 : 76), blurRadius: _hovered ? 28 : 20),
+            BoxShadow(color: EvaColors.warning.withAlpha(_hovered ? 200 : 153), blurRadius: _hovered ? 12 : 8),
+            BoxShadow(color: EvaColors.warning.withAlpha(_hovered ? 100 : 76), blurRadius: _hovered ? 28 : 20),
           ]
         ),
       EvaButtonVariant.secondary => (

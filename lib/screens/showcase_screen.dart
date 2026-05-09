@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../theme/eva_theme.dart';
@@ -341,7 +340,7 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
             const EvaButton(label: 'SECONDARY', variant: EvaButtonVariant.secondary),
             const EvaButton(label: 'DANGER', variant: EvaButtonVariant.danger),
             const EvaButton(label: 'GHOST', variant: EvaButtonVariant.ghost),
-            const EvaButton(label: '⚠  HAZARD', variant: EvaButtonVariant.hazard),
+            EvaButton(label: 'HAZARD', variant: EvaButtonVariant.hazard, icon: EvaIcon(EvaIconName.triangleAlert, size: 14, color: Colors.white)),
           ],
         ),
         const SizedBox(height: 12),

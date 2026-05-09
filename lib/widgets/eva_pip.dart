@@ -36,7 +36,7 @@ class EvaPip extends StatelessWidget {
       ),
     );
 
-    if (pulse && status != PipStatus.offline) {
+    if (pulse && status != PipStatus.offline && !MediaQuery.disableAnimationsOf(context)) {
       return dot
           .animate(onPlay: (c) => c.repeat())
           .fadeOut(duration: 750.ms, curve: Curves.easeInOut)
