@@ -33,6 +33,7 @@ class _MagiScreenState extends State<MagiScreen> {
   };
   final _random = Random();
   final _scrollController = ScrollController();
+  int _submitCount = 0;
 
   @override
   void dispose() {
@@ -51,6 +52,7 @@ class _MagiScreenState extends State<MagiScreen> {
   void _submit() {
     if (_phase != _MagiPhase.idle) return;
     setState(() {
+      _submitCount++;
       _phase = _MagiPhase.analyzing;
       for (final key in _verdicts.keys) {
         _verdicts[key] = null;
@@ -125,12 +127,14 @@ class _MagiScreenState extends State<MagiScreen> {
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: _MagiUnitPanel(
+                key: _submitCount > 0 ? ValueKey('$name-$_submitCount') : null,
                 name: name,
                 system: system,
                 buildCode: unitBuild,
                 phase: _phase,
                 verdict: _verdicts[name],
                 entryDelay: idx * 80,
+                animate: _submitCount > 0,
               ),
             );
           }),
@@ -210,14 +214,17 @@ class _MagiUnitPanel extends StatelessWidget {
   final _MagiPhase phase;
   final _MagiVerdict? verdict;
   final int entryDelay;
+  final bool animate;
 
   const _MagiUnitPanel({
+    super.key,
     required this.name,
     required this.system,
     required this.buildCode,
     required this.phase,
     required this.verdict,
     required this.entryDelay,
+    this.animate = false,
   });
 
   PipStatus get _pipStatus {
@@ -236,7 +243,7 @@ class _MagiUnitPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return EvaClipBox(
+    final box = EvaClipBox(
       cut: 10,
       borderColor: _borderColor,
       backgroundColor: phase != _MagiPhase.idle
@@ -273,10 +280,13 @@ class _MagiUnitPanel extends StatelessWidget {
           ],
         ),
       ),
-    ).animate().fadeIn(
-          duration: 350.ms,
-          delay: Duration(milliseconds: entryDelay),
-        ).slideY(begin: 0.03);
+    );
+
+    if (!animate) return box;
+    return box
+        .animate()
+        .fadeIn(duration: 350.ms, delay: Duration(milliseconds: entryDelay))
+        .slideY(begin: 0.03);
   }
 
   Widget _buildStatus() {

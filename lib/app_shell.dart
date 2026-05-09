@@ -21,9 +21,21 @@ class AppShell extends StatefulWidget {
 }
 
 class _AppShellState extends State<AppShell> {
-  int _selectedIndex = 5;
+  int _selectedIndex = 0;
 
   static const _tabs = [
+    _TabItem(
+      label: 'MAGI',
+      crumb: '[ NERV / MAGI / SYSTEM ]',
+      icon: EvaIconName.signal,
+      screen: MagiScreen(),
+    ),
+    _TabItem(
+      label: 'DS',
+      crumb: '[ NERV / DESIGN SYSTEM ]',
+      icon: EvaIconName.target,
+      screen: ShowcaseScreen(),
+    ),
     _TabItem(
       label: 'OPS',
       crumb: '[ NERV / OPS / OVERVIEW ]',
@@ -48,18 +60,6 @@ class _AppShellState extends State<AppShell> {
       crumb: '[ NERV / AUTH / OPERATOR ]',
       icon: EvaIconName.shield,
       screen: AuthScreen(),
-    ),
-    _TabItem(
-      label: 'DS',
-      crumb: '[ NERV / DESIGN SYSTEM ]',
-      icon: EvaIconName.target,
-      screen: ShowcaseScreen(),
-    ),
-    _TabItem(
-      label: 'MAGI',
-      crumb: '[ NERV / MAGI / SYSTEM ]',
-      icon: EvaIconName.signal,
-      screen: MagiScreen(),
     ),
   ];
 
@@ -112,8 +112,8 @@ class _AppShellState extends State<AppShell> {
           ),
           const Spacer(),
           EvaStatusBadge(
-            status: _selectedIndex == 2 ? PipStatus.danger : PipStatus.active,
-            label: _selectedIndex == 2 ? '3 OPEN' : 'MAGI SYNC',
+            status: _tabs[_selectedIndex].hasAlert ? PipStatus.danger : PipStatus.active,
+            label: _tabs[_selectedIndex].hasAlert ? '3 OPEN' : 'MAGI SYNC',
           ),
         ],
       ),
